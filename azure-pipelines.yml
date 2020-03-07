@@ -17,6 +17,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - bash: |
-        export DOCKER_CLI_EXPERIMENTAL=enabled
+        echo '{ "experimental": true }' | sudo tee /etc/docker/daemon.json
+        sudo service docker restart
         docker version -f '{{.Server.Experimental}}'
-        docker buildx
+        docker buildx --help
