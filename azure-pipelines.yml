@@ -17,6 +17,5 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - bash: |
-        mkdir -p ~/.docker
-        echo '{ "experimental": "enabled" }' > ~/.docker/config.json
-        docker buildx
+        echo '{ "experimental": "enabled" }' > /etc/docker/daemon.json
+        docker version -f '{{.Server.Experimental}}'
