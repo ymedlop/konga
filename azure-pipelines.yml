@@ -22,5 +22,7 @@ stages:
         dockerVersion: '19.03.7'
         releaseType: 'edge'
     - bash: |
-        export DOCKER_CLI_EXPERIMENTAL=1
+        export DOCKER_BUILD_KIT=1
+        export DOCKER_CLI_EXPERIMENTAL=enabled
+        docker version
         docker buildx install
