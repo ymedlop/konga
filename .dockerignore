@@ -121,3 +121,6 @@ nbproject
 /config/mssqlconfig.js
 /www/
 /seeds/
+.git
+screenshots
+test
