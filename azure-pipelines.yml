@@ -17,8 +17,9 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - bash: |
-        cat $DOCKER_CONFIG/config.json | jq '. + { "experimental": "enabled" }' > $DOCKER_CONFIG/experimental.json
-        mv -f $DOCKER_CONFIG/experimental.json $DOCKER_CONFIG/config.json
+        mkdir -p ~/.docker
+        sed '$ s/.$//' $DOCKER_CONFIG/config.json > ~/.docker/config.json
+        echo ',"experimental": "enabled" }' >> ~/.docker/config.json
         sudo service docker restart
         docker version
         docker buildx --help
