@@ -20,8 +20,8 @@ stages:
         mkdir -p ~/.docker
         echo '{ "experimental": true }' | sudo tee /etc/docker/daemon.json
         echo '{ "experimental": true }' | sudo tee ~/.docker/config.json
+        sudo chown $USER:docker ~/.docker
+        sudo chown $USER:docker ~/.docker/config.json
+        sudo chmod g+rw ~/.docker/config.json
         sudo service docker restart
-        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-        docker buildx create --use - docker buildx create --use
-        docker buildx inspect --bootstrap - docker buildx inspect --bootstrap
-        docker buildx build --platform=linux/amd64,linux/arm64 -t ymedlop/konga:latest .
+        docker version
