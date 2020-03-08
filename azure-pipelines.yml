@@ -17,7 +17,8 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - bash: |
-        echo '{ "experimental": true }' | sudo tee /etc/docker/daemon.json
+        mkdir -p ~/.docker
+        echo '{ "experimental": true }' | sudo tee /~/.docker/config.json
         sudo service docker restart
         docker version
-        docker buildx --version
+        docker buildx --help
