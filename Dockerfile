@@ -16,7 +16,7 @@ RUN apk add --no-cache --virtual \
     git \
     ca-certificates \
     && npm --unsafe-perm i -g bower \
-    && npm ci
+    && npm --unsafe-perm ci
 
 FROM node:10.16-alpine
 
@@ -24,6 +24,8 @@ ENV NODE_ENV development
 ENV STORAGE_PATH /app/kongadata
 
 WORKDIR /app
+COPY . .
+COPY --from=builder node_modules node_modules
 
 RUN apk upgrade --update \
     && apk add bash git ca-certificates \
@@ -32,9 +34,6 @@ RUN apk upgrade --update \
     && chown -R node /app
 
 USER node
-
-COPY . .
-COPY --from=builder node_modules node_modules
 
 EXPOSE 1337
 
