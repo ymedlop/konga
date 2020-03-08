@@ -16,10 +16,11 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '19.03.7-ce'
+        releaseType: 'edge'
     - bash: |
-        mkdir -p ~/.docker
-        sed '$ s/.$//' $DOCKER_CONFIG/config.json > ~/.docker/config.json
-        echo ',"experimental": "enabled" }' >> ~/.docker/config.json
-        sudo service docker restart
         docker version
         docker buildx --help
