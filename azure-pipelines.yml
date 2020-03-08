@@ -23,5 +23,4 @@ stages:
         releaseType: 'edge'
     - bash: |
         export DOCKER_CLI_EXPERIMENTAL=enabled
-        docker version
-        docker buildx --help
+        docker buildx build .
