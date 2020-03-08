@@ -16,7 +16,8 @@ RUN apk add --no-cache --virtual \
     git \
     ca-certificates \
     && npm --unsafe-perm i -g bower \
-    && npm --unsafe-perm ci
+    && npm --unsafe-perm ci \
+    && npm rebuild node-sass
 
 FROM node:10.16-alpine
 
