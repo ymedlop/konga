@@ -27,4 +27,7 @@ stages:
         mkdir -p ~/.docker/cli-plugins
         curl -L https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64 --output ~/.docker/cli-plugins/docker-buildx && chmod a+x ~/.docker/cli-plugins/docker-buildx
         docker version
-        docker buildx install
+        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+        docker buildx create --use
+        docker buildx inspect --bootstrap
+        docker buildx build --platform=linux/arm/v7 -t ymedlop/konga:0.14.7 -o type=registry .
