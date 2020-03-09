@@ -1,5 +1,5 @@
 # FROM node:10.16-alpine as builder
-FROM ubuntu:bionic AS builder
+FROM node:10.16-jessie AS builder
 ENV NODE_ENV production
 
 COPY package.json package-lock.json bower.json ./
@@ -14,10 +14,10 @@ COPY package.json package-lock.json bower.json ./
  #   python \
  #   git
 
-RUN npm --unsafe-perm i
+RUN npm --unsafe-perm i \
 # Node Sass does not support Linux architecture (arm)
 # Hotfix: https://github.com/sass/node-sass/issues/1609
-RUN npm rebuild node-sass
+    && npm rebuild node-sass
     # && npm i -g bower \
     # && bower install
 
