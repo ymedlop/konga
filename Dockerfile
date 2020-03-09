@@ -4,7 +4,7 @@ ENV NODE_ENV production
 
 COPY package.json package-lock.json bower.json ./
 
-RUN apk add --no-cache --virtual \
+RUN apk add \
     .gip \
     build-base \ 
     linux-headers \
