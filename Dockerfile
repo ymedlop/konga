@@ -13,11 +13,12 @@ RUN apk add --no-cache --virtual \
     make \
     python \
     git \
-    && npm --unsafe-perm i -g bower \
-    && npm --unsafe-perm ci \
+    && npm ci \
     # Node Sass does not support Linux architecture (arm)
     # Hotfix: https://github.com/sass/node-sass/issues/1609
     && npm rebuild node-sass
+    # && npm i -g bower \
+    # && bower install
 
 FROM node:10.16-alpine
 
