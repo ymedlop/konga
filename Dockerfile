@@ -14,7 +14,7 @@ RUN apk add --no-cache --virtual \
     python \
     git
 
-RUN npm ci
+RUN npm i
 
 # Node Sass does not support Linux architecture (arm)
 # Hotfix: https://github.com/sass/node-sass/issues/1609
