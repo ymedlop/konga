@@ -1,5 +1,5 @@
 # FROM node:10.16-alpine as builder
-FROM node:10.16-jessie AS builder
+FROM node:10.16.3-stretch AS builder
 ENV NODE_ENV production
 
 COPY package.json package-lock.json bower.json ./
