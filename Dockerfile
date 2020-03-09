@@ -1,21 +1,20 @@
-FROM node:10.16-alpine as builder
-
+# FROM node:10.16-alpine as builder
+FROM ubuntu:bionic AS builder
 ENV NODE_ENV production
 
 COPY package.json package-lock.json bower.json ./
 
-RUN apk add --no-cache --virtual \
-    .gip \
-    build-base \ 
-    linux-headers \
-    udev \
-    g++ \
-    make \
-    python \
-    git
+# RUN apk add --no-cache --virtual \
+#    .gip \
+#    build-base \ 
+#    linux-headers \
+#    udev \
+#    g++ \
+#    make \
+ #   python \
+ #   git
 
 RUN npm --unsafe-perm i
-
 # Node Sass does not support Linux architecture (arm)
 # Hotfix: https://github.com/sass/node-sass/issues/1609
 RUN npm rebuild node-sass
