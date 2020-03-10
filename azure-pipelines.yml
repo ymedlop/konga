@@ -6,8 +6,8 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  DOCKER_BUILD_KIT: 1
-  DOCKER_CLI_EXPERIMENTAL: 'enabled'
+  MY_DOCKER_USER: '$(DOCKER_USER)'
+  MY_DOCKER_PWD: '$(DOCKER_PWD)'
 
 stages:
 - stage: Build
@@ -29,5 +29,5 @@ stages:
         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         docker buildx create --use
         docker buildx inspect --bootstrap
-        echo $(docker_pwd) | docker login -u $(docker_user) --password-stdin
+        docker login -u $MY_DOCKER_USER -p $(MY_DOCKER_PWD)
         docker buildx build --platform=linux/amd64,linux/arm64 -t ymedlop/konga:0.14.7 -o type=registry .
