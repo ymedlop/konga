@@ -18,10 +18,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Docker@2
-      inputs:
-        command: 'login'
-        containerRegistry: 'dockerhub'
     - task: DockerInstaller@0
       inputs:
         dockerVersion: '19.03.7'
@@ -33,5 +29,5 @@ stages:
         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         docker buildx create --use
         docker buildx inspect --bootstrap
-        docker buildx install
+        docker login -u $(docker_user) -p $(docker_pwd)
         docker buildx build --platform=linux/amd64,linux/arm64 -t ymedlop/konga:0.14.7 -o type=registry .
