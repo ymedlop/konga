@@ -26,6 +26,7 @@ stages:
     - task: Docker@2
       inputs:
         command: 'login'
+        containerRegistry: 'dockerhub'
   
     - bash: |
         mkdir -p ~/.docker/cli-plugins
