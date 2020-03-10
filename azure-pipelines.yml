@@ -29,13 +29,12 @@ stages:
         containerRegistry: 'dockerhub'
   
     - bash: |
-        export DOCKER_BUILD_KIT=1
-        export DOCKER_CLI_EXPERIMENTAL='enabled'
-
         mkdir -p ~/.docker/cli-plugins
         curl -L https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64 --output ~/.docker/cli-plugins/docker-buildx
         chmod a+x ~/.docker/cli-plugins/docker-buildx
-        
+        docker version
+
+    - bash: |
         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         docker buildx create --use
         docker buildx inspect --bootstrap
