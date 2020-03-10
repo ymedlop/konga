@@ -4,7 +4,7 @@ ENV NODE_ENV production
 
 COPY package.json package-lock.json bower.json ./
 
-RUN npm --unsafe-perm ci \
+RUN npm ci  \
     # Node Sass does not support Linux architecture (arm)
     # Hotfix: https://github.com/sass/node-sass/issues/1609
     && set -eux; \
