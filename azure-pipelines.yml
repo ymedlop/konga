@@ -22,7 +22,10 @@ stages:
       inputs:
         dockerVersion: '19.03.7'
         releaseType: 'edge'
-
+    - task: Docker@2
+      inputs:
+        command: 'login'
+        containerRegistry: 'dockerhub'
     - bash: |
         mkdir -p ~/.docker/cli-plugins
         curl -L https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64 --output ~/.docker/cli-plugins/docker-buildx
@@ -31,6 +34,5 @@ stages:
         docker buildx create --use
         docker buildx inspect --bootstrap
         docker buildx install
-  
     - bash: |
         docker buildx build --platform=linux/amd64,linux/arm64 -t ymedlop/konga:0.14.7 -o type=registry .
