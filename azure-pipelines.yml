@@ -29,9 +29,5 @@ stages:
         docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         docker buildx create --use
         docker buildx inspect --bootstrap
-    - task: Docker@2
-      inputs:
-        command: 'login'
-        containerRegistry: 'dockerhub'
-    - bash: |
+        echo $(docker_pwd) | docker login -u $(docker_user) --password-stdin
         docker buildx build --platform=linux/amd64,linux/arm64 -t ymedlop/konga:0.14.7 -o type=registry .
