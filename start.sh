@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #bash start.sh -c prepare -a postgres -u postgresql://postgres:postgres@localhost:5432/konga
 

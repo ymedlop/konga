@@ -1,12 +1,17 @@
 FROM node:10.16.3-stretch AS builder
+
 ENV NODE_ENV production
 
 COPY package.json package-lock.json bower.json ./
 
-RUN npm --unsafe-perm i \
+RUN npm --unsafe-perm ci \
     # Node Sass does not support Linux architecture (arm)
     # Hotfix: https://github.com/sass/node-sass/issues/1609
-    && npm rebuild node-sass
+    && set -eux; \
+	dpkgArch="$(dpkg --print-architecture || echo amd64)"; \
+	case "${dpkgArch##*-}" in \
+		arm64) npm rebuild node-sass ;;  \
+    esac;
 
 FROM node:10.16-alpine
 
@@ -20,7 +25,7 @@ RUN chown -R node /app
 USER node
 
 COPY . .
-COPY --from=builder node_modules node_modules
+COPY --from=builder node_modules bower_components ./
 
 EXPOSE 1337
 
